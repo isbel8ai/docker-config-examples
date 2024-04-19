@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  appdaemon:
+    image: acockburn/appdaemon:latest
+    container_name: appdaemon
+    restart: always
+    environment:
+      HA_URL: ${HA_URL}
+      TOKEN: ${HA_TOKEN}
+    volumes:
+      - ./data/appdaemon/conf:/conf
+    ports:
+      - "5050:5050"

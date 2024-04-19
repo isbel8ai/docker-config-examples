@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  homeassistant:
+    image: homeassistant/home-assistant
+    container_name: homeassistant
+    restart: always
+    volumes:
+      - ./data/homeassistant/config:/config
+    ports:
+      - "8123:8123"
