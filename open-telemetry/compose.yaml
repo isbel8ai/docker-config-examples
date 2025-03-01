@@ -1,0 +1,10 @@
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: otel-collector
+    ports:
+      - "4317:4317"   # OTLP gRPC
+      - "55681:55681" # OpenTelemetry Protocol for tracing
+    volumes:
+      - ./etc/otel/:/etc/otel/
+    command: ["--config", "/etc/otel/config.yaml"]
