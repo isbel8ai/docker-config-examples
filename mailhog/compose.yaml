@@ -1,0 +1,7 @@
+services:
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog-smtp
+    ports:
+      - "1025:1025"   # SMTP port (your app sends emails here)
+      - "8025:8025"   # Web UI port (view emails in browser)

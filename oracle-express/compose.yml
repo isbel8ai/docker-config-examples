@@ -1,7 +1,7 @@
 services:
-  oracle:
+  oracle-express:
     image: container-registry.oracle.com/database/express
-    container_name: oracle-xe
+    container_name: oracle-express-db
     restart: unless-stopped
     ports:
       - "1521:1521"   # Oracle Listener
@@ -12,4 +12,4 @@ services:
       - oracle_data:/opt/oracle/oradata  # Persistent database storage
 
 volumes:
-  oracle_data:
+  oracle-express-data:
