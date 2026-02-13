@@ -1,0 +1,1 @@
+podman compose run --rm requesttracker bash -c 'cd /opt/rt && perl ./sbin/rt-setup-database --dba rtuser --action init --skip-create'

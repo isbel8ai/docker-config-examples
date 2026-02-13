@@ -1,0 +1,38 @@
+services:     
+  nginx:
+    container_name: rt-nginx
+    image: nginx:alpine
+    ports:
+      - "8280:8080"
+    volumes:
+      - ./config/nginx-rt.conf:/etc/nginx/nginx.conf:ro
+      - rt-share:/opt/rt/share/:ro
+    depends_on:
+      - rt
+    restart: unless-stopped
+
+  rt:
+    container_name: rt-fastcgi
+    image: firefart/requesttracker:latest
+    volumes:
+      - ./config/RT_SiteConfig.pm:/opt/rt/etc/RT_SiteConfig.pm:ro
+      - rt-share:/opt/rt/share/
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    
+    
+  postgres:
+    container_name: rt-postgres-db
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: rtuser
+      POSTGRES_PASSWORD: rtpass
+      POSTGRES_DB: requesttracker
+    volumes:
+      - rt-postgresql-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  rt-postgresql-data:
+  rt-share:
