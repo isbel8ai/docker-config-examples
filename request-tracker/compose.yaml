@@ -3,9 +3,9 @@ services:
     container_name: rt-nginx
     image: nginx:alpine
     ports:
-      - "8280:8080"
+      - "8280:8280"
     volumes:
-      - ./config/nginx-rt.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx-rt.conf:/etc/nginx/conf.d/rt.conf:ro
       - rt-share:/opt/rt/share/:ro
     depends_on:
       - rt
@@ -19,8 +19,7 @@ services:
       - rt-share:/opt/rt/share/
     depends_on:
       - postgres
-    restart: unless-stopped
-    
+    restart: unless-stopped    
     
   postgres:
     container_name: rt-postgres-db
