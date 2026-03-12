@@ -1,0 +1,18 @@
+services:
+  activemq:
+    image: rmohr/activemq:latest
+    container_name: activemq
+    ports:
+      - "61616:61616"   # OpenWire (JMS)
+      - "8161:8161"     # Web Console
+    environment:
+      - ACTIVEMQ_ADMIN_LOGIN=admin
+      - ACTIVEMQ_ADMIN_PASSWORD=admin
+    volumes:
+      - activemq-data:/opt/activemq/data
+      - activemq-logs:/opt/activemq/logs
+    restart: unless-stopped
+
+volumes:
+  activemq-data:
+  activemq-logs:
