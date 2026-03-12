@@ -33,3 +33,5 @@ Set($DatabasePassword, 'rtpass');
 # The name of the RT database on your database server. For Oracle, the SID and database objects are created in $DatabaseUser's schema.
 Set($DatabaseName, 'requesttracker');
 
+Set($DefaultTimeZone, 'Europe/Vienna');
+
