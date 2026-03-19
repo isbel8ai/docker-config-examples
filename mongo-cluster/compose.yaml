@@ -1,0 +1,39 @@
+services:
+  mongo-0:
+    hostname: $HOSTNAME
+    container_name: mongo-0
+    image: candis/mongo-replica-set
+    build: ./
+    command: [ "--keyFile", "/data/key/replica-set.key", "--replSet", "rs" ]
+    ports:
+      - '27017:27017'
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    healthcheck:
+      test: echo 'rs.status().ok' | mongo admin -u root -p root --quiet | grep 1
+      interval: 10s
+      start_period: 20s
+    # networks:
+    #     - mongo-cluster
+ 
+  mongo-setup:
+    container_name: mongo-setup
+    image: candis/mongo-replica-set
+    build: ./
+    depends_on:
+      - mongo-0
+    volumes:
+      - .:/scripts
+    restart: 'no'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    entrypoint: [ 'bash', '/scripts/setup.sh' ]
+    # networks:
+    #   - mongo-cluster
+ 
+    # networks:
+    #   mongo-cluster:
+    #     name: mongo-cluster
