@@ -3,12 +3,18 @@ services:
     image: gvenzl/oracle-xe:slim
     container_name: oracle-xe-db
     ports:
-      - "1521:1521"   # SQL*Net
-      - "5500:5500"   # Enterprise Manager Express
+      # SQL*Net
+      - "1521:1521"
+      # Enterprise Manager Express
+      - "5500:5500"   
     environment:
-      ORACLE_PASSWORD: ${ORACLE_PASSWORD}  # default SYS/SYSTEM password
-      APP_USER: ${ORACLE_APP_USER}         # optional: auto-create application user
-      APP_USER_PASSWORD: ${ORACLE_APP_PASSWORD}
+      # default SYS/SYSTEM password
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD}
+      # optional: auto-create application user  
+      # APP_USER: ${ORACLE_APP_USER}       
+      # APP_USER_PASSWORD: ${ORACLE_APP_PASSWORD}
+      # the target pluggable database the user should be created in, default XEPDB1 (ignored for 11g R2)
+      # TARGET_PDB: XEPDB1                          
     volumes:
       - oracle-xe-data:/opt/oracle/oradata  # persistent data
     restart: unless-stopped
