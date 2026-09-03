@@ -1,0 +1,28 @@
+services:
+  postgresql:
+    network_mode: host
+    networks: !reset []
+    ports: !reset []
+
+  temporal:
+    network_mode: host
+    networks: !reset []
+    ports: !reset []
+    environment:
+      - BIND_ON_IP=127.0.0.1
+      - POSTGRES_SEEDS=127.0.0.1
+
+  temporal-admin-tools:
+    network_mode: host
+    networks: !reset []
+    environment:
+      - TEMPORAL_ADDRESS=127.0.0.1:7233
+      - TEMPORAL_CLI_ADDRESS=127.0.0.1:7233
+
+  temporal-ui:
+    network_mode: host
+    networks: !reset []
+    ports: !reset []
+    environment:
+      - TEMPORAL_ADDRESS=127.0.0.1:7233
+      - TEMPORAL_UI_PORT=8180
